@@ -1,0 +1,28 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+env/
+venv/
+.venv/
+
+# Configuraciones sensibles
+.env
+*.env
+
+# Archivos de base de datos
+*.db
+*.sqlite
+
+# Archivos generados
+*.log
+
+# Configuración del editor
+.vscode/
+.idea/
+
+# Archivos de sistema
+.DS_Store
