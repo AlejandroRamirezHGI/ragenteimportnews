@@ -1,6 +1,11 @@
-fastapi
-uvicorn
-langchain
-openai
-chromadb
-huggingface_hub
+-fastapi
+-uvicorn
+-langchain
+-chromadb
+-huggingface_hub
++fastapi==0.116.1
++uvicorn[standard]==0.35.0
++langchain==0.3.27
++langchain-community==0.3.27
++chromadb
++huggingface_hub
