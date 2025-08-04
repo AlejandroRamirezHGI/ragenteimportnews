@@ -1,8 +1,8 @@
-# retriever.py
-from langchain.document_loaders import TextLoader, DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.vectorstores import Chroma
+from langchain_community.document_loaders import TextLoader, DirectoryLoader
+from langchain.embeddings import HuggingFaceEmbeddings 
+from langchain_community.vectorstores import Chroma
+
 
 def crear_retriever(path_docs="documents"):
     loader = DirectoryLoader(path_docs, glob="*.txt", loader_cls=TextLoader)
