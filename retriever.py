@@ -4,7 +4,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import Chroma
 
-def crear_retriever(path_docs="docs"):
+def crear_retriever(path_docs="documents"):
     loader = DirectoryLoader(path_docs, glob="*.txt", loader_cls=TextLoader)
     docs = loader.load()
     splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
