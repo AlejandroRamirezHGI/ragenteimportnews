@@ -1,4 +1,4 @@
-import os  # ← debe estar al inicio
+import os 
 from fastapi import FastAPI
 from pydantic import BaseModel
 from rag_engine import ejecutar_rag
