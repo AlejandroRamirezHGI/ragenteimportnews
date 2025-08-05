@@ -4,12 +4,12 @@ __pycache__/
 *.pyo
 *.pyd
 
-# Virtual environments
+# Entornos virtuales
 env/
 venv/
 .venv/
 
-# Configuraciones sensibles
+# Variables de entorno
 .env
 *.env
 
@@ -26,3 +26,7 @@ venv/
 
 # Archivos de sistema
 .DS_Store
+
+# Render
+render.yaml
+
