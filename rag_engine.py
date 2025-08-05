@@ -2,47 +2,44 @@ import os
 from huggingface_hub import InferenceClient
 from retriever import crear_retriever
 
-SYSTEM = "Eres un agente RAG. Usa sólo la información del contexto para responder."
+# Inicializar retriever
+retriever = crear_retriever()
 
-# Carga segura del token
-HF_TOKEN = os.getenv("HF_TOKEN")
-if not HF_TOKEN:
-    raise EnvironmentError("❌ Falta el token de HuggingFace. Define HF_TOKEN como variable de entorno.")
-
-# Inicializa el cliente solo si hay token
+# Inicializar cliente HuggingFace Inference API
 client = InferenceClient(
-    model="meta-llama/Llama-3-8B-Instruct",
-    token=HF_TOKEN,
+    model="meta-llama/Meta-Llama-3-8B-Instruct",  # Cambia según el modelo que uses
+    token=os.environ["HF_TOKEN"]
 )
 
 def ejecutar_rag(pregunta: str) -> str:
     try:
-        # Recuperación de contexto
-        retriever = crear_retriever()
+        # Recuperar documentos relevantes
         docs = retriever.get_relevant_documents(pregunta)
+        contexto = "\n".join([doc.page_content for doc in docs])
 
-        if not docs:
-            return "No se encontró contexto relevante para responder a tu pregunta."
+        # Construir el prompt para el modelo
+        prompt = f"""
+<s>[INST] Eres un asistente útil y preciso. Usa el siguiente contexto para responder la pregunta.
+Contexto:
+{contexto}
 
-        contexto = "\n\n".join([doc.page_content for doc in docs])
+Pregunta:
+{pregunta}
+[/INST]
+"""
 
-        # Construcción del prompt
-        prompt = (
-            f"{SYSTEM}\n\n"
-            f"Contexto:\n{contexto}\n\n"
-            f"Pregunta: {pregunta}\n"
-            f"Respuesta:"
-        )
-
-        # Llamada al modelo
-        response = client.text_completion(
+        # Llamada al modelo con text_generation
+        respuesta = client.text_generation(
             prompt=prompt,
-            max_new_tokens=256,
-            temperature=0.0,
-            top_p=0.95
+            max_new_tokens=300,
+            temperature=0.7,
+            do_sample=True,
+            repetition_penalty=1.1,
+            stop_sequences=["</s>"]
         )
 
-        return response.generated_text.strip()
+        return respuesta
 
     except Exception as e:
-        return f"❌ Error interno en RAG: {str(e)}"
+        raise RuntimeError(f"❌ Error interno en RAG: {str(e)}")
+
