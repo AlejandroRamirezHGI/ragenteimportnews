@@ -2,26 +2,25 @@ import os
 from huggingface_hub import InferenceClient
 from retriever import crear_retriever
 
-# Inicializar retriever
+# Inicializar el retriever
 retriever = crear_retriever()
 
-# Inicializar cliente HuggingFace Inference API
+# Inicializar el cliente de Inference API
 client = InferenceClient(
-    model="meta-llama/Llama-3.1-8B-Instruct",
+    model="meta-llama/Llama-3.2-3B-Instruct",
     token=os.environ["HF_TOKEN"]
 )
 
 def construir_prompt(contexto: str, pregunta: str) -> str:
     return f"""
-<|begin_of_text|><|start_header_id|>user<|end_header_id|>
-Usa el siguiente contexto para responder con precisión la pregunta al final. Si no sabes la respuesta, di que no sabes.
+<s>[INST] Eres un asistente útil y preciso. Usa el siguiente contexto para responder la pregunta al final. Si no sabes la respuesta, di que no sabes.
 
 Contexto:
 {contexto}
 
 Pregunta:
 {pregunta}
-<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+[/INST]
 """.strip()
 
 def ejecutar_rag(pregunta: str) -> str:
@@ -40,7 +39,7 @@ def ejecutar_rag(pregunta: str) -> str:
             temperature=0.7,
             top_p=0.9,
             repetition_penalty=1.1,
-            stop_sequences=["<|eot_id|>"]
+            stop_sequences=["</s>"]
         )
 
         return respuesta.strip()
