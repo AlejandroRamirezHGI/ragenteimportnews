@@ -1,3 +1,4 @@
+import os
 from huggingface_hub import InferenceClient
 from retriever import crear_retriever
 
