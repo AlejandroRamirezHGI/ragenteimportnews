@@ -12,6 +12,7 @@ agente1/
 ├── documents/
 │   └── noticias.txt
 ├── requirements.txt
+├── render.yaml
 └── .gitignore
 ```
 
