@@ -5,3 +5,4 @@ langchain-community==0.3.27
 chromadb==0.4.24
 huggingface_hub==0.22.2
 sentence-transformers==2.6.1
+tokenizers==0.13.3
