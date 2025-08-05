@@ -4,13 +4,12 @@ from retriever import crear_retriever
 
 SYSTEM = "Eres un agente RAG. Usa sólo la información del contexto para responder."
 
-# Verificación de token
 HF_TOKEN = os.getenv("HF_TOKEN")
 if not HF_TOKEN:
     raise EnvironmentError("❌ Falta el token de HuggingFace. Define HF_TOKEN como variable de entorno.")
 
 client = InferenceClient(
-    model="meta-llama/Llama-3-8B-Instruct",  # Puedes cambiar a la versión 70B si lo necesitas
+    model="meta-llama/Llama-3-8B-Instruct",
     token=HF_TOKEN,
 )
 
