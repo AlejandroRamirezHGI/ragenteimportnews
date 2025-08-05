@@ -27,6 +27,4 @@ venv/
 # Archivos de sistema
 .DS_Store
 
-# Render
-render.yaml
 
