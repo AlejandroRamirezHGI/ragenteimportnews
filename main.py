@@ -12,6 +12,10 @@ class Query(BaseModel):
 def api_query(q: Query):
     return {"respuesta": ejecutar_rag(q.pregunta)}
 
+@app.get("/")
+def root():
+    return {"mensaje": "Agente RAG en línea y funcionando correctamente."}
+
 # Este bloque es clave para Render:
 if __name__ == "__main__":
     import uvicorn
