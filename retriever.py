@@ -2,6 +2,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import TextLoader, DirectoryLoader
 from langchain.embeddings import HuggingFaceEmbeddings 
 from langchain_community.vectorstores import Chroma
+import os
 
 
 def crear_retriever(path_docs="documents"):
