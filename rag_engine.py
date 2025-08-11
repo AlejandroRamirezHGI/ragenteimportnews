@@ -7,7 +7,7 @@ retriever = crear_retriever()
 
 # Inicializar el cliente de Inference API
 client = InferenceClient(
-    model="meta-llama/Llama-3.2-3B-Instruct",
+    model="meta-llama/Llama-3.3-70B-Instruct",
     token=os.environ["HF_TOKEN"]
 )
 
