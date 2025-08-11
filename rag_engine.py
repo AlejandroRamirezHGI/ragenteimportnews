@@ -25,6 +25,15 @@ Pregunta:
 
 def ejecutar_rag(pregunta: str) -> str:
     try:
+        # 🔍 Verificar cliente y modelo
+        print(f"🔍 Usando cliente: {type(client)}")
+        try:
+            info = client.get_model_info()
+            print(f"📌 Modelo cargado: {info.modelId}")
+            print(f"📌 Pipeline/Tarea: {info.pipeline_tag}")
+        except Exception as e_info:
+            print(f"⚠️ No se pudo obtener info del modelo: {e_info}")
+
         # Recuperar documentos relevantes
         docs = retriever.get_relevant_documents(pregunta)
         if not docs:
@@ -33,6 +42,7 @@ def ejecutar_rag(pregunta: str) -> str:
         contexto = "\n".join([doc.page_content for doc in docs])
         prompt = construir_prompt(contexto, pregunta)
 
+        # Intentar generar respuesta usando text-generation
         respuesta = client.text_generation(
             prompt=prompt,
             max_new_tokens=300,
